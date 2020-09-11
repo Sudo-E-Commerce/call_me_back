@@ -19,7 +19,6 @@ class CreateCallMeBackTable extends Migration
             $table->string('name');
             $table->string('current_page');
             $table->tinyInteger('active_status')->default(0); //0 : chờ xử lý, 1 : đã gọi khách
-            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

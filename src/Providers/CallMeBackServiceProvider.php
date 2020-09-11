@@ -86,7 +86,7 @@ class CallMeBackServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $assets = [
-                __DIR__.'/../../resources/assets/web' => public_path('assets/call_me_back'),
+                __DIR__.'/../../resources/assets/web' => public_path('platforms/call_me_back'),
             ];
             $config = [
                 //

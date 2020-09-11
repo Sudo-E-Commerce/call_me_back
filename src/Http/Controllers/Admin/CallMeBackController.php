@@ -15,7 +15,7 @@ class CallMeBackController extends AdminController
     function __construct() {
         $this->models = new \Sudo\CallMeBack\Models\CallMeBack;
         $this->table_name = $this->models->getTable();
-        $this->module_name = 'CallMeBack';
+        $this->module_name = __('Gọi cho tôi');
         $this->has_seo = false;
         $this->has_locale = false;
         parent::__construct();
@@ -45,7 +45,6 @@ class CallMeBackController extends AdminController
         $listdata->add('name', 'Tên trang hiện tại', 0);
         $listdata->add('active_status', 'Xác nhận', 1);
         $listdata->add('', 'Thời gian', 0, 'time');
-        $listdata->add('status', 'Trạng thái', 1, 'status');
         $listdata->add('', 'Sửa', 0, 'edit');
         $listdata->add('', 'Xóa', 0, 'delete');
 
@@ -65,7 +64,6 @@ class CallMeBackController extends AdminController
 
         $form->card('col-lg-3', '');
             $form->action('add');
-            $form->radio('status', 1, 'Status', config('app.status'));
         $form->endCard();
 
         $form->hasFullForm();
@@ -80,18 +78,16 @@ class CallMeBackController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function store(Request $requests) {
-
         // Xử lý validate
-        $this->validate($requests,['phone'=>'required|min:11|numeric'],  ['phone.numeric' => 'Vui lòng nhập đúng số điện thoại!'] );
+        $this->validate($requests,['phone' => 'required|regex:/(0)([0-9]{9})/'],  ['phone.regex' => 'Số điện thoại của bạn không đúng định dạng!'] );
         // Các giá trị mặc định
-        $status = 0;
         $active_status = 0;
         // Đưa mảng về các biến có tên là các key của mảng
         extract($requests->all(), EXTR_OVERWRITE);
         // Chuẩn hóa lại dữ liệu
         // Thêm vào DB
         $created_at = $updated_at = date('Y-m-d H:i:s');
-        $compact = compact('phone', 'name', 'current_page', 'active_status', 'status','created_at','updated_at');
+        $compact = compact('phone', 'name', 'current_page', 'active_status', 'created_at', 'updated_at');
         $id = $this->models->createRecord($requests, $compact, $this->has_seo, true);
         // Điều hướng
         return redirect(route('admin.'.$this->table_name.'.'.$redirect, $id))->with([
@@ -135,7 +131,6 @@ class CallMeBackController extends AdminController
             $link = (config('app.call_me_back_models')) ? config('app.call_me_back_models')::where('id', $id)->first()->getUrl() : '';
             $form->action('edit', $link);
             $form->radio('active_status', $data_edit->active_status, 'Xác nhận', $active_status);
-            $form->radio('status', $data_edit->status, 'Status', config('app.status'));
         $form->endCard();
 
         $form->hasFullForm();
@@ -157,14 +152,13 @@ class CallMeBackController extends AdminController
         // Lấy bản ghi
         $data_edit = $this->models->where('id', $id)->first();
         // Các giá trị mặc định
-        $status = 0;
         $active_status = 0;
         // Đưa mảng về các biến có tên là các key của mảng
         extract($requests->all(), EXTR_OVERWRITE);
         // Chuẩn hóa lại dữ liệu
         // Các giá trị thay đổi
         $created_at = $updated_at = date('Y-m-d H:i:s');
-        $compact = compact('phone', 'name', 'current_page', 'active_status', 'status', 'created_at', 'updated_at');
+        $compact = compact('phone', 'name', 'current_page', 'active_status', 'created_at', 'updated_at');
         // Cập nhật tại database
         $this->models->updateRecord($requests, $id, $compact, $this->has_seo);
         // Điều hướng

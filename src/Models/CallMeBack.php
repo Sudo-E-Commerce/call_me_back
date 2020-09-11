@@ -6,5 +6,5 @@ use Sudo\Base\Models\BaseModel;
 
 class CallMeBack extends BaseModel
 {
-    protected $fillable = ['phone', 'name', 'current_page', 'active_status', 'status'];
+    protected $fillable = ['phone', 'name', 'current_page', 'active_status'];
 }

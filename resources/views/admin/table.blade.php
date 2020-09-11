@@ -1,5 +1,7 @@
 @include('Table::components.text',['text' => $value->phone ?? ''])
-@include('Table::components.link',['text' => $value->name ?? 'Không xác định', 'url' => $value->current_page ?? '#'])
+<td>
+	<a href="{{$value->current_page ?? '#' ??'javascript:;'}}" target="_blank">{{$value->name ?? 'Không xác định'}}</a>
+</td>
 @include('Table::components.edit_array',[
 						'name' => 'active_status',
 						'value' => $value->active_status, 

@@ -19,12 +19,11 @@ class CallMebackController extends Controller
         ],[
             'name' => $data['name'],
             'current_page' => $data['url'],
-            'status' => 1,
             'active_status' => 0,
             'created_at' => $created_at,
             'updated_at' => $updated_at,
         ]);
-        $result['message'] = 'Thành công! Chúng tôi sẽ gọi lại cho bạn!';
+        $result['message'] = __('Thành công! Chúng tôi sẽ gọi lại cho bạn!');
     	return json_encode($result);
     }
 }
