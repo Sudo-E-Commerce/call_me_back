@@ -36,9 +36,9 @@ class CallMeBackController extends AdminController
         $listdata->search('active_status', 'Xác nhận', 'array', $active_status);
         $listdata->search('status', 'Trạng thái', 'array', config('app.status'));
         // Build các button hành động
-        $listdata->btnAction('status', 1, __('Table::table.active'), 'primary', 'fas fa-edit');
-        $listdata->btnAction('status', 0, __('Table::table.no_active'), 'warning', 'fas fa-edit');
-        $listdata->btnAction('delete', -1, __('Table::table.trash'), 'danger', 'fas fa-trash');
+        $listdata->btnAction('status', 1, __('Translate::table.active'), 'primary', 'fas fa-edit');
+        $listdata->btnAction('status', 0, __('Translate::table.no_active'), 'warning', 'fas fa-edit');
+        $listdata->btnAction('delete', -1, __('Translate::table.trash'), 'danger', 'fas fa-trash');
         $listdata->searchBtn( 'Xuất Excel', 'export/phone', 'primary', 'fa fa-file-excel');
         // Build bảng
         $listdata->add('phone', 'Số điện thoại', 1);
@@ -92,7 +92,7 @@ class CallMeBackController extends AdminController
         // Điều hướng
         return redirect(route('admin.'.$this->table_name.'.'.$redirect, $id))->with([
             'type' => 'success',
-            'message' => __('Core::admin.create_success')
+            'message' => __('Translate::admin.create_success')
         ]);
     }
 
@@ -164,7 +164,7 @@ class CallMeBackController extends AdminController
         // Điều hướng
         return redirect(route('admin.'.$this->table_name.'.'.$redirect, $id))->with([
             'type' => 'success',
-            'message' => __('Core::admin.update_success')
+            'message' => __('Translate::admin.update_success')
         ]);
     }
 
